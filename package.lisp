@@ -1,9 +1,10 @@
 (defpackage :jgart.compose
   (:use cl)
   (:import-from #:binding-arrows #:->)
+  (:import-from #:alexandria #:curry)
   (:shadowing-import-from #:charje.loop
 			  #:loop
-			  #:take-while
+			  #:map
 			  #:collect
-			  #:finally
-			  #:input-stream-iterator))
+			  #:input-stream-iterator)
+  (:export #:main))

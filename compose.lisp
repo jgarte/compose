@@ -13,22 +13,21 @@
 (defun comp (s)
   (set-complement *universe* s))
 
-(defun parse-pitch-integer (ch)
-  (flet ((convert (ch)
-	   (parse-integer (string ch))))
-    (case ch
-      (#\0 (convert ch))
-      (#\1 (convert ch))
-      (#\2 (convert ch))
-      (#\3 (convert ch))
-      (#\4 (convert ch))
-      (#\5 (convert ch))
-      (#\6 (convert ch))
-      (#\7 (convert ch))
-      (#\8 (convert ch))
-      (#\9 (convert ch))
-      (#\Newline "newline")
-      (otherwise ""))))
+(defun convert-note (note)
+  "Convert from a pitch integer to a lilypond NOTE."
+  (case note
+    ("0" "c")
+    ("1" "cs")
+    ("2" "d")
+    ("3" "ds")
+    ("4" "e")
+    ("5" "f")
+    ("6" "fs")
+    ("7" "g")
+    ("8" "gs")
+    ("9" "a")
+    ("10" "as")
+    ("11" "b")))
 
 (defun write-language (stream &optional (language "english"))
   (write-line
@@ -43,31 +42,36 @@
   (write-language stream)
   (write-version stream))
 
-(defun parse-music-helper (ch)
-  (parse-pitch-integer ch))
+(defun parse-tone-rows (filepath-name)
+  (with-open-file (f filepath-name)
+    ;; TODO: Remove once fixed packaged upstream.
+    (-> (input-stream-iterator
+	 f :parser (lambda (stream) (values (read-line stream))))
+	(map (curry #'str:split " "))
+	collect)))
 
-(defun parse-music (&optional (file "compose.txt"))
-  (with-open-file (f file)
-    (-> (input-stream-iterator f :parser #'read-char)
-      (take-while 
-       (lambda (m)
-	 m
-	 ;; (and (stringp m)
-	 ;;      (string/= m "newline"))
-	 ))
-      ;; (map #'cons)
-      collect)))
+(defun write-system-break (stream)
+  (write-line "\\break" stream))
 
-;; (defun read-music (stream)
-;;   (write-lilypond-header stream)
-;;   (write-line "{" stream)
-;;   ;; (write-line (parse-note ch) stream)
-;;   (write-line "}" stream))
+(defun write-tone-rows (filepath-name stream)
+  (let ((tone-rows (parse-tone-rows filepath-name)))
+    (loop (tone-row tone-rows)
+	  (loop (note tone-row)
+		(write-line (convert-note note) stream)
+		(write-system-break stream)))))
 
-;; (defun write-music (&optional (output-file "output.ly"))
-;;   (with-open-file (stream output-file
-;; 			  :direction :output
-;; 			  :if-exists :supersede
-;; 			  :if-does-not-exist :create)
-    
-;;     (read-music stream)))
+(defun write-music (filepath-name stream)
+  (write-line "{" stream)
+  (write-tone-rows filepath-name stream)
+  (write-line "}" stream))
+
+(defun write-score (filepath-name stream)
+  (write-header stream)
+  (write-music filepath-name stream))
+
+(defun main (&aux (filepath-name (first (uiop:command-line-arguments))))
+  (with-open-file (stream "output.ly"
+			  :direction :output
+			  :if-exists :supersede
+			  :if-does-not-exist :create)
+    (write-score filepath-name stream)))

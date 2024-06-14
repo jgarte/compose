@@ -17,26 +17,28 @@
     ((string= "11" note) "b")
     (t "")))
 
-(defun add-octave (note)
-  (flet ((concat (note octave)
-	   (concatenate 'string note octave)))
-    (cond 
-      ((string= "c" note) (concat note "'"))
-      ((string= "cs" note) (concat note "''"))
-      ((string= "d" note) (concat note "'"))
-      ((string= "ds" note) (concat note "'''"))
-      ((string= "e" note) (concat note "'''"))
-      ((string= "f" note) (concat note ""))
-      ((string= "fs" note) (concat note "'"))
-      ((string= "g" note) (concat note "'"))
-      ((string= "gs" note) (concat note ""))
-      ((string= "a" note) (concat note ""))
-      ((string= "as" note) (concat note ""))
-      ((string= "b" note) (concat note "''"))
-      (t ""))))
+(defun concat (note octave)
+  (concatenate 'string note octave))
 
-(defun process-note (note)
-  (-> note convert-note add-octave))
+(defun add-octave (note)
+  (cond 
+    ((string= "c" note) (concat note "'"))
+    ((string= "cs" note) (concat note "''"))
+    ((string= "d" note) (concat note "'"))
+    ((string= "ds" note) (concat note "'''"))
+    ((string= "e" note) (concat note "'''"))
+    ((string= "f" note) (concat note ""))
+    ((string= "fs" note) (concat note "'"))
+    ((string= "g" note) (concat note "'"))
+    ((string= "gs" note) (concat note ""))
+    ((string= "a" note) (concat note ""))
+    ((string= "as" note) (concat note ""))
+    ((string= "b" note) (concat note "''"))
+    (t "")))
+
+(defun process-note (note duration)
+  "DURATION is only given to the first note."
+  (concat (-> note convert-note add-octave) duration))
 
 (defun write-language (stream &optional (language "english"))
   (write-line

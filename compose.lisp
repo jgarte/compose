@@ -32,11 +32,9 @@
 
 (defun parse-tone-rows (filepath-name)
   (with-open-file (f filepath-name)
-    ;; TODO: Remove once fixed packaged upstream.
-    (-> (input-stream-iterator
-	 f :parser (lambda (stream) (values (read-line stream))))
-	(map #'uiop:split-string)
-	collect)))
+    (-> (input-stream-iterator f)
+      (map #'uiop:split-string)
+      collect)))
 
 (defun write-system-break (stream)
   (write-line "\\break" stream))

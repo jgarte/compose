@@ -76,6 +76,7 @@
 
 (defun write-music (filepath-name stream)
   (write-line "{" stream)
+  (write-line "\\omit TimeSignature" stream)
   (write-line "\\override Score.BarLine.transparent = ##t" stream)
   (write-line "\\override Score.BarNumber.break-visibility = #end-of-line-invisible" stream)
   (write-line "\\override Score.BarNumber.stencil = ##f" stream)

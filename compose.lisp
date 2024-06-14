@@ -1,23 +1,21 @@
 (in-package :jgart.compose)
 
-(defun comp (s)
-  (set-complement *universe* s))
-
 (defun convert-note (note)
   "Convert from a pitch integer to a lilypond NOTE."
-  (case note
-    ("0" "c")
-    ("1" "cs")
-    ("2" "d")
-    ("3" "ds")
-    ("4" "e")
-    ("5" "f")
-    ("6" "fs")
-    ("7" "g")
-    ("8" "gs")
-    ("9" "a")
-    ("10" "as")
-    ("11" "b")))
+  (cond 
+    ((string= "0" note) "c")
+    ((string= "1" note) "cs")
+    ((string= "2" note) "d")
+    ((string= "3" note) "ds")
+    ((string= "4" note) "e")
+    ((string= "5" note) "f")
+    ((string= "6" note) "fs")
+    ((string= "7" note) "g")
+    ((string= "8" note) "gs")
+    ((string= "9" note) "a")
+    ((string= "10" note) "as")
+    ((string= "11" note) "b")
+    (t "")))
 
 (defun write-language (stream &optional (language "english"))
   (write-line
@@ -47,8 +45,8 @@
   (let ((tone-rows (parse-tone-rows filepath-name)))
     (loop (tone-row tone-rows)
 	  (loop (note tone-row)
-		(write-line (convert-note note) stream)
-		(write-system-break stream)))))
+		(write-line (convert-note note) stream))
+	  (write-system-break stream))))
 
 (defun write-music (filepath-name stream)
   (write-line "{" stream)
@@ -59,7 +57,7 @@
   (write-header stream)
   (write-music filepath-name stream))
 
-(defun main (&aux (filepath-name (first (uiop:command-line-arguments))))
+(defun main (&optional (filepath-name (first (uiop:command-line-arguments))))
   (with-open-file (stream "output.ly"
 			  :direction :output
 			  :if-exists :supersede

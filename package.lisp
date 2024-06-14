@@ -1,7 +1,7 @@
 (defpackage :jgart.compose
   (:use cl)
+  (:import-from #:uiop #:split-string)
   (:import-from #:binding-arrows #:->)
-  (:import-from #:alexandria #:curry)
   (:shadowing-import-from #:charje.loop
 			  #:loop
 			  #:map

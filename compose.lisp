@@ -37,7 +37,7 @@
     ;; TODO: Remove once fixed packaged upstream.
     (-> (input-stream-iterator
 	 f :parser (lambda (stream) (values (read-line stream))))
-	(map (curry #'str:split " "))
+	(map #'uiop:split-string)
 	collect)))
 
 (defun write-system-break (stream)

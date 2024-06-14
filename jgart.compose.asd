@@ -1,6 +1,7 @@
 (defsystem "jgart.compose"
   :depends-on ("charje.loop" "str" "binding-arrows")
   :components ((:file "package")
+	       (:file "universe")
 	       (:file "compose"))
   :build-operation "program-op"
   :entry-point "jgart.compose:main"

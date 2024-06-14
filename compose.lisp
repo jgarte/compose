@@ -17,6 +17,27 @@
     ((string= "11" note) "b")
     (t "")))
 
+(defun add-octave (note)
+  (flet ((concat (note octave)
+	   (concatenate 'string note octave)))
+    (cond 
+      ((string= "c" note) (concat note "'"))
+      ((string= "cs" note) (concat note "''"))
+      ((string= "d" note) (concat note "'"))
+      ((string= "ds" note) (concat note "'''"))
+      ((string= "e" note) (concat note "'''"))
+      ((string= "f" note) (concat note ""))
+      ((string= "fs" note) (concat note "'"))
+      ((string= "g" note) (concat note "'"))
+      ((string= "gs" note) (concat note ""))
+      ((string= "a" note) (concat note ""))
+      ((string= "as" note) (concat note ""))
+      ((string= "b" note) (concat note "''"))
+      (t ""))))
+
+(defun process-note (note)
+  (-> note convert-note add-octave))
+
 (defun write-language (stream &optional (language "english"))
   (write-line
    (concatenate 'string "\\language \"" language "\"") stream))
@@ -48,9 +69,9 @@
 		     (right-half (comp tone-row))
 		     (tone-row (append left-half right-half)))
 		(loop (note tone-row)
-		      (write-line (convert-note note) stream)))
+		      (write-line (process-note note) stream)))
 	      (loop (note tone-row)
-		    (write-line (convert-note note) stream)))
+		    (write-line (process-note note) stream)))
 	  (write-system-break stream))))
 
 (defun write-music (filepath-name stream)

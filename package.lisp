@@ -7,4 +7,6 @@
 			  #:map
 			  #:collect
 			  #:input-stream-iterator)
-  (:export #:main))
+  (:export #:notes
+	   #:comp
+	   #:main))

@@ -77,11 +77,14 @@
 (defun write-music (filepath-name stream)
   (write-line "{" stream)
   (write-line "\\override Score.BarLine.transparent = ##t" stream)
+  (write-line "\\override Score.BarNumber.break-visibility = #end-of-line-invisible" stream)
+  (write-line "\\override Score.BarNumber.stencil = ##f" stream)
   (write-tone-rows filepath-name stream)
   (write-line "}" stream))
 
 (defun write-score (filepath-name stream)
   (write-header stream)
+  (write-line "\\paper { oddFooterMarkup = ##f evenFooterMarkup = ##f }" stream)
   (write-music filepath-name stream))
 
 (defun main (&optional (filepath-name (first (uiop:command-line-arguments))))

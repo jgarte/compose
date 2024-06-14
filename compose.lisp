@@ -76,6 +76,7 @@
 
 (defun write-music (filepath-name stream)
   (write-line "{" stream)
+  (write-line "\\override Score.BarLine.transparent = ##t" stream)
   (write-tone-rows filepath-name stream)
   (write-line "}" stream))
 

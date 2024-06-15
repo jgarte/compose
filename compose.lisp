@@ -17,9 +17,6 @@
     ((string= "11" note) "b")
     (t "")))
 
-(defun concat (note octave)
-  (concatenate 'string note octave))
-
 (defun add-octave (note)
   (cond 
     ((string= "c" note) (concat note "'"))
@@ -41,8 +38,7 @@
   (concat (-> note convert-note add-octave) duration))
 
 (defun write-language (stream &optional (language "english"))
-  (write-line
-   (concatenate 'string "\\language \"" language "\"") stream))
+  (write-line (concat "\\language \"" language "\"") stream))
 
 (defun write-version (stream &optional (version "2.25.12"))
   "TODO: Use lilypond --version to get the string?"

@@ -28,5 +28,6 @@ To run the project, call the following commands in order:
 ```sh
 ./build.sh
 lilypond output.ly
-open output.pdf
 ```
+
+You can now open the PDF called `output.pdf`.

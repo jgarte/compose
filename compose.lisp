@@ -43,7 +43,7 @@
 (defun write-version (stream &optional (version "2.25.12"))
   "TODO: Use lilypond --version to get the string?"
   (write-line
-   (concatenate 'string "\\version \"" version "\"") stream))
+   (concat "\\version \"" version "\"") stream))
 
 (defun write-header (stream)
   (write-language stream)

@@ -14,6 +14,8 @@ notes.
 
 # setup
 
+This program uses lilypond 2.25.12 as a backend for rendering music notation.
+
 Clone the following dependencies into foo:
 
 https://github.com/phoe/binding-arrows

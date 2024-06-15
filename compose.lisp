@@ -62,24 +62,24 @@
   (let ((tone-rows (parse-tone-rows filepath-name)))
     (let ((first-timep t)
 	  (duration "1"))
-      (loop (tone-row tone-rows)
-	    (if (< (length tone-row)
-		   (length *universe*))
-		(let* ((left-half tone-row)
-		       (right-half (comp tone-row))
-		       (tone-row (append left-half right-half)))
-		  (loop (note tone-row)
-			(write-line (process-note note duration) stream)
-			(when first-timep
-			  (setf duration ""
-				first-timep nil))))
-		(loop (note tone-row)
-		      (write-line (process-note note duration) stream)
-		      (when first-timep
-			(setf duration ""
-			      first-timep nil))))
-	    
-	    (write-system-break stream)))))
+      (dolist (tone-row tone-rows)
+	(if (< (length tone-row)
+	       (length *universe*))
+	    (let* ((left-half tone-row)
+		   (right-half (comp tone-row))
+		   (tone-row (append left-half right-half)))
+	      (dolist (note tone-row)
+		(write-line (process-note note duration) stream)
+		(when first-timep
+		  (setf duration ""
+			first-timep nil))))
+	    (dolist (note tone-row)
+	      (write-line (process-note note duration) stream)
+	      (when first-timep
+		(setf duration ""
+		      first-timep nil))))
+	
+	(write-system-break stream)))))
 
 (defun write-music (filepath-name stream)
   (write-line "{" stream)

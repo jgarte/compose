@@ -75,8 +75,7 @@
 			      first-timep nil)))))
 	    (write-system-break stream)))))
 
-;; TODO rename and refactor
-(defun write-music (filepath-name stream)
+(defun write-music-body (filepath-name stream)
   (write-line "{" stream)
   (write-line "\\omit TimeSignature" stream)
   (write-line "\\override Score.BarLine.transparent = ##t" stream)
@@ -88,17 +87,20 @@
 (defun write-score (filepath-name stream)
   (write-header stream)
   (write-line "\\paper { oddFooterMarkup = ##f evenFooterMarkup = ##f }" stream)
-  (write-music filepath-name stream))
+  (write-music-body filepath-name stream))
 
-(defun lilypond (input-filepath)
-  (uiop:launch-program (list "lilypond" input-filepath)))
-
-(defun main
-    (&optional (input-filepath (first (uiop:command-line-arguments)))
-       (output-filepath "output.ly"))
+(defun write-music (input-filepath output-filepath)
   (with-open-file (stream output-filepath
 			  :direction :output
 			  :if-exists :supersede
 			  :if-does-not-exist :create)
-    (write-score input-filepath stream))
+    (write-score input-filepath stream)))
+
+(defun lilypond (input-filepath)
+  (uiop:launch-program (list "lilypond" input-filepath)))
+
+(defun main (&optional
+	       (input-filepath (first (uiop:command-line-arguments)))
+	       (output-filepath "output.ly"))
+  (write-music input-filepath output-filepath)
   (lilypond output-filepath))

@@ -8,7 +8,5 @@
                (member element smaller-set :test test))
              larger-set))
 
-(deftype notes () `(member ,@*universe*))
-
 (defun comp (s)
   (set-complement *universe* s))

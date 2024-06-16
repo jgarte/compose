@@ -1,0 +1,15 @@
+[submodule "libs/loop"]
+	path = libs/loop
+	url = https://git.sr.ht/~charje/loop/
+[submodule "libs/documentation"]
+	path = libs/documentation
+	url = https://git.sr.ht/~charje/documentation
+[submodule "libs/alexandria"]
+	path = libs/alexandria
+	url = https://gitlab.common-lisp.net/alexandria/alexandria
+[submodule "libs/binding-arrows"]
+	path = libs/binding-arrows
+	url = https://github.com/phoe/binding-arrows/
+[submodule "libs/parse-declarations"]
+	path = libs/parse-declarations
+	url = https://gitlab.common-lisp.net/parse-declarations/parse-declarations.git

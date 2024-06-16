@@ -37,17 +37,8 @@
   "DURATION is only given to the first note."
   (concat (-> note convert-note add-octave) duration))
 
-(defun write-language (stream &optional (language "english"))
+(defun write-language-directive (stream &optional (language "english"))
   (write-line (concat "\\language \"" language "\"") stream))
-
-(defun write-version (stream &optional (version "2.25.12"))
-  "TODO: Use lilypond --version to get the string?"
-  (write-line
-   (concat "\\version \"" version "\"") stream))
-
-(defun write-header (stream)
-  (write-language stream)
-  (write-version stream))
 
 (defun parse-tone-rows (filepath-name)
   (with-open-file (f filepath-name)
@@ -55,7 +46,7 @@
       (map #'uiop:split-string)
       collect)))
 
-(defun write-system-break (stream)
+(defun write-system-break-directive (stream)
   (write-line "\\break" stream))
 
 (defun write-tone-rows (filepath-name stream)
@@ -73,7 +64,7 @@
 		      (when first-timep
 			(setf duration ""
 			      first-timep nil)))))
-	    (write-system-break stream)))))
+	    (write-system-break-directive stream)))))
 
 (defun write-music-body (filepath-name stream)
   (write-line "{" stream)
@@ -85,7 +76,7 @@
   (write-line "}" stream))
 
 (defun write-score (filepath-name stream)
-  (write-header stream)
+  (write-language-directive stream)
   (write-line "\\paper { oddFooterMarkup = ##f evenFooterMarkup = ##f }" stream)
   (write-music-body filepath-name stream))
 

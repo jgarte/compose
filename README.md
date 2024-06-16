@@ -14,20 +14,17 @@ notes.
 
 # setup
 
-This program uses lilypond 2.25.12 as a backend for rendering music notation.
+This program requires [lilypond](https://lilypond.org/) 2.25.12 to be
+installed as a backend for rendering music notation.
 
-Clone the following dependencies into foo:
+# build
 
-https://github.com/phoe/binding-arrows
-https://git.sr.ht/~charje/loop/
-
-# run
-
-To run the project, call the following commands in order:
+To build the project, call the following commands in order:
 
 ```sh
+git clone --recurse-submodules https://git.sr.ht/~whereiseveryone/compose
+cd compose
 ./build.sh
-lilypond output.ly
 ```
 
 You can now open the PDF called `output.pdf`.

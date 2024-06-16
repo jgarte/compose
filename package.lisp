@@ -3,10 +3,10 @@
   (:import-from #:uiop #:split-string)
   (:import-from #:binding-arrows #:->)
   (:shadowing-import-from #:charje.loop
-			  #:loop
-			  #:map
 			  #:collect
-			  #:input-stream-iterator)
+			  #:input-stream-iterator
+			  #:loop
+			  #:map)
   (:export #:notes
 	   #:comp
 	   #:main))

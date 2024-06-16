@@ -4,7 +4,7 @@
   (:import-from #:binding-arrows #:->)
   (:shadowing-import-from #:charje.loop
 			  #:collect
-			  #:input-stream-iterator
+			  #:iterator
 			  #:loop
 			  #:map)
   (:export #:notes

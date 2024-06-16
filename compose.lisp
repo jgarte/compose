@@ -42,9 +42,9 @@
 
 (defun parse-tone-rows (filepath-name)
   (with-open-file (f filepath-name)
-    (-> (input-stream-iterator f)
-      (map #'uiop:split-string)
-      collect)))
+    (-> f iterator
+	(map #'uiop:split-string)
+	collect)))
 
 (defun write-system-break-directive (stream)
   (write-line "\\break" stream))

@@ -1,7 +1,9 @@
 #!/bin/env -S sbcl --script
 (require "asdf")
-(pushnew #P"/home/jgart/quicklisp/local-projects/loop/" asdf:*central-registry*)
-(pushnew #P"/home/jgart/quicklisp/local-projects/documentation/" asdf:*central-registry*)
-(pushnew #P"/home/jgart/quicklisp/local-projects/compose-one/" asdf:*central-registry*)
+(require "uiop")
+(let ((libs (uiop:subdirectories "libs/")))
+  (dolist (lib libs)
+   (pushnew lib asdf:*central-registry*)))
+(pushnew (uiop:getcwd) asdf:*central-registry*)
 (asdf:load-system "jgart.compose")
 (asdf:make "jgart.compose")

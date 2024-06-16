@@ -88,7 +88,7 @@
     (write-score input-filepath stream)))
 
 (defun lilypond (input-filepath)
-  (uiop:launch-program (list "lilypond" input-filepath)))
+  (uiop:launch-program (list "lilypond" "--silent" input-filepath)))
 
 (defun main (&optional
 	       (input-filepath (first (uiop:command-line-arguments)))

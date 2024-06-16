@@ -57,7 +57,7 @@
 	    (when (<= (length tone-row)
 		      (length *universe*))
 	      (let* ((left-half tone-row)
-		     (right-half (comp left-half))
+		     (right-half (-> left-half comp shuffle))
 		     (tone-row (append left-half right-half)))
 		(loop (note tone-row)
 		      (write-line (process-note note duration) stream)

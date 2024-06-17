@@ -14,8 +14,7 @@
     ((string= "8" note) "gs")
     ((string= "9" note) "a")
     ((string= "10" note) "as")
-    ((string= "11" note) "b")
-    (t "")))
+    (t "b")))
 
 (defun add-octave (note)
   (cond 
@@ -30,8 +29,7 @@
     ((string= "gs" note) (concat note ""))
     ((string= "a" note) (concat note ""))
     ((string= "as" note) (concat note ""))
-    ((string= "b" note) (concat note "''"))
-    (t "")))
+    (t (concat note "''"))))
 
 (defun process-note (note duration)
   "DURATION is only given to the first note."

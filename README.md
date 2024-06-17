@@ -24,7 +24,7 @@ To build the project, call the following commands in order:
 ```sh
 git clone --recurse-submodules https://git.sr.ht/~whereiseveryone/compose
 cd compose
-./build.sh
+./build
 ```
 
 You can now open the PDF called `output.pdf`.

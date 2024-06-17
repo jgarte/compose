@@ -7,6 +7,4 @@
 			  #:iterator
 			  #:loop
 			  #:map)
-  (:export #:notes
-	   #:comp
-	   #:main))
+  (:export #:main))

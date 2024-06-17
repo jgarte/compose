@@ -12,7 +12,7 @@
     ((= (length list) 1) (first list))
     ((= (length list) 2) (swap list))
     ((> (length list) 2)
-     (let* ((random-index (random (1- (length list))))
+     (let* ((random-index (random (length list)))
 	    (random-value (nth random-index list))
 	    (first-item-in-list (first list)))
        (setf (first list) random-value

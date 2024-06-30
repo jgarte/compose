@@ -3,8 +3,9 @@
   (:import-from #:uiop #:split-string)
   (:import-from #:binding-arrows #:->)
   (:shadowing-import-from #:charje.loop
-			  #:collect
-			  #:iterator
-			  #:loop
-			  #:map)
+                          #:collect
+                          #:collecting
+                          #:iterator
+                          #:loop
+                          #:map)
   (:export #:main))

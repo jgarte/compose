@@ -28,3 +28,7 @@ cd compose
 ```
 
 You can now open the PDF called `output.pdf`.
+
+# todo
+
+move modules to `src` folder

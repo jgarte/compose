@@ -3,28 +3,20 @@
 (defun write-language-directive (stream &optional (language "english"))
   (write-line (concat "\\language \"" language "\"") stream))
 
-;;; With class I know what type it is
-;;; I'm using the octave accessor on that
-;; Parse the string and count how many apostrophes are in that string
 (defun write-system-break-directive (stream)
   (write-line "\\break" stream))
 
 (defun write-tone-rows (filepath-name stream)
   (let ((tone-rows (parse-tone-rows filepath-name)))
-    (let ((first-timep t)
-          (duration "1"))
-      (loop (tone-row tone-rows)
-        (when (<= (length tone-row)
-                  (length *universe*))
-          (let* ((left-half tone-row)
-                 (right-half (-> left-half comp shuffle))
-                 (tone-row (append left-half right-half)))
-            (loop (note tone-row)
-              (write-line (process-note note duration) stream)
-              (when first-timep
-                (setf duration ""
-                      first-timep nil)))))
-        (write-system-break-directive stream)))))
+    (loop (tone-row tone-rows)
+      (loop (note (tone-row-to-list-of-notes tone-row))
+        (write-line
+         (concatenate 'string
+                      (serialize-lilypond-note (lilypond-note note))
+                      (serialize-lilypond-octave (octave note))
+                      (serialize-lilypond-duration (duration note)))
+         stream)))
+    (write-system-break-directive stream)))
 
 (defun write-music-body (filepath-name stream)
   (write-line "{" stream)
@@ -49,10 +41,3 @@
 
 (defun lilypond (input-filepath)
   (uiop:launch-program (list "lilypond" "--silent" input-filepath)))
-
-(defun main (&optional
-               (input-filepath (first (uiop:command-line-arguments)))
-               (output-filepath "output.ly"))
-  (setf *random-state* (make-random-state t))
-  (write-music input-filepath output-filepath)
-;;   (lilypond output-filepath))

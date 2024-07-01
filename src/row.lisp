@@ -41,6 +41,66 @@
     (check-type note-eleven note)
     (check-type note-twelve note)))
 
+(defmethod print-object ((obj tone-row) stream)
+  (print-unreadable-object (obj stream :type t :identity t)
+    (with-slots (note-one note-two note-three note-four note-five note-six note-seven note-eight note-nine note-ten note-eleven note-twelve) obj
+      (format stream
+              "~a ~a ~a ~a ~a ~a ~a ~a ~a ~a ~a ~a"
+              (note note-one)
+              (note note-two)
+              (note note-three)
+              (note note-four)
+              (note note-five)
+              (note note-six)
+              (note note-seven)
+              (note note-eight)
+              (note note-nine)
+              (note note-ten)
+              (note note-eleven)
+              (note note-twelve)))))
+
+(defun tone-row-to-list-of-notes (tone-row)
+  (list (note-one tone-row)
+        (note-two tone-row)
+        (note-three tone-row)
+        (note-four tone-row)
+        (note-five tone-row)
+        (note-six tone-row)
+        (note-seven tone-row)
+        (note-eight tone-row)
+        (note-nine tone-row)
+        (note-ten tone-row)
+        (note-eleven tone-row)
+        (note-twelve tone-row)))
+
+(defun from-universe (tone-row)
+  (destructuring-bind (note-one
+                       note-two
+                       note-three
+                       note-four
+                       note-five
+                       note-six
+                       note-seven
+                       note-eight
+                       note-nine
+                       note-ten
+                       note-eleven
+                       note-twelve)
+      tone-row
+    (make-instance 'tone-row
+                   :note-one (parse-note note-one) ; todo i shouldn't parse here
+                   :note-two (parse-note note-two)
+                   :note-three (parse-note note-three)
+                   :note-four (parse-note note-four)
+                   :note-five (parse-note note-five)
+                   :note-six (parse-note note-six)
+                   :note-seven (parse-note note-seven)
+                   :note-eight (parse-note note-eight)
+                   :note-nine (parse-note note-nine)
+                   :note-ten (parse-note note-ten)
+                   :note-eleven (parse-note note-eleven)
+                   :note-twelve (parse-note note-twelve))))
+
 (defun parse-tone-row (tone-row)
   (destructuring-bind (note-one
                        note-two
@@ -56,17 +116,17 @@
                        note-twelve)
       tone-row
     (make-instance 'tone-row :note-one (parse-note note-one)
-                               :note-two (parse-note note-two)
-                               :note-three (parse-note note-three)
-                               :note-four (parse-note note-four)
-                               :note-five (parse-note note-five)
-                               :note-six (parse-note note-six)
-                               :note-seven (parse-note note-seven)
-                               :note-eight (parse-note note-eight)
-                               :note-nine (parse-note note-nine)
-                               :note-ten (parse-note note-ten)
-                               :note-eleven (parse-note note-eleven)
-                               :note-twelve (parse-note note-twelve))))
+                             :note-two (parse-note note-two)
+                             :note-three (parse-note note-three)
+                             :note-four (parse-note note-four)
+                             :note-five (parse-note note-five)
+                             :note-six (parse-note note-six)
+                             :note-seven (parse-note note-seven)
+                             :note-eight (parse-note note-eight)
+                             :note-nine (parse-note note-nine)
+                             :note-ten (parse-note note-ten)
+                             :note-eleven (parse-note note-eleven)
+                             :note-twelve (parse-note note-twelve))))
 
 (defun read-tone-rows (filepath-name)
   (with-open-file (f filepath-name)
@@ -74,7 +134,21 @@
         (map #'uiop:split-string)
         collect)))
 
+(defun parse-tone-rows-helper (tone-rows)
+  (loop (tone-row tone-rows)
+    (when (<= (length tone-row)
+              (length *universe*))
+      (collecting (parse-tone-row tone-row)))))
+
+;; (defun parse-tone-rows-helper (tone-rows)
+;;   (loop (tone-row tone-rows)
+;;     (when (<= (length tone-row)
+;;               (length *universe*))
+;;       (let* ((left-half tone-row)
+;;              (right-half (-> left-half comp shuffle))
+;;              (tone-row (append left-half right-half)))
+;;         (collecting (parse-tone-row tone-row))))))
+
 (defun parse-tone-rows (filepath-name)
   (let ((tone-rows (read-tone-rows filepath-name)))
-    (loop (tone-row tone-rows)
-      (collecting (parse-tone-row tone-row)))))
+    (parse-tone-rows-helper tone-rows)))

@@ -9,7 +9,8 @@
      (:file "universe")
      (:file "note")
      (:file "row")
-     (:file "compose"))))
+     (:file "io")
+     (:file "main"))))
   :build-operation "program-op"
   :entry-point "jgart.compose:main"
   :build-pathname #.(merge-pathnames #p"compose" (uiop:getcwd)))

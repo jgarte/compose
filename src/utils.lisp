@@ -13,10 +13,10 @@
     ((= (length list) 2) (swap list))
     ((> (length list) 2)
      (let* ((random-index (random (length list)))
-	    (random-value (nth random-index list))
-	    (first-item-in-list (first list)))
+            (random-value (nth random-index list))
+            (first-item-in-list (first list)))
        (setf (first list) random-value
-	     (nth random-index list) first-item-in-list)
+             (nth random-index list) first-item-in-list)
        list))))
 
 

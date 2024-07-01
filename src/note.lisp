@@ -41,24 +41,8 @@
 
 (defmethod print-object ((obj note) stream)
   (print-unreadable-object (obj stream :type t :identity t)
-    (with-slots (note) obj
-      (format stream "note: ~a~%" note))))
-
-(defun parse-note (note)
-  (etypecase note
-    (string
-     (multiple-value-bind (note pos)
-         (parse-integer note)
-       (declare (ignore pos))
-       (make-instance 'note
-                      :note note
-                      :octave (map-note-to-octave note)
-                      :lilypond-note (parse-lilypond-note note))))
-    (integer
-     (make-instance 'note
-                    :note note
-                    :octave (map-note-to-octave note)
-                    :lilypond-note (parse-lilypond-note note)))))
+    (with-slots (lilypond-note) obj
+      (format stream "~a~%" lilypond-note))))
 
 (defun parse-lilypond-note (note)
   "Convert from a NOTE to a lilypond note."
@@ -115,3 +99,19 @@
   (case duration
     (:whole-note "1")
     (:half-note "2")))
+
+(defun parse (note)
+  (etypecase note
+    (string
+     (multiple-value-bind (note pos)
+         (parse-integer note)
+       (declare (ignore pos))
+       (make-instance 'note
+                      :note note
+                      :octave (map-note-to-octave note)
+                      :lilypond-note (parse-lilypond-note note))))
+    (integer
+     (make-instance 'note
+                    :note note
+                    :octave (map-note-to-octave note)
+                    :lilypond-note (parse-lilypond-note note)))))

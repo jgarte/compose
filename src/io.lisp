@@ -9,14 +9,14 @@
 (defun write-tone-rows (filepath-name stream)
   (let ((tone-rows (parse-tone-rows filepath-name)))
     (loop (tone-row tone-rows)
-      (loop (note (tone-row-to-list-of-notes tone-row))
+      (loop (note tone-row)
         (write-line
          (concatenate 'string
                       (serialize-lilypond-note (lilypond-note note))
                       (serialize-lilypond-octave (octave note))
                       (serialize-lilypond-duration (duration note)))
-         stream)))
-    (write-system-break-directive stream)))
+         stream))))
+  (write-system-break-directive stream))
 
 (defun write-music-body (filepath-name stream)
   (write-line "{" stream)

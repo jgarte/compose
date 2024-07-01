@@ -5,7 +5,9 @@
   (:shadowing-import-from #:charje.loop
                           #:collect
                           #:collecting
+                          #:collecting-vector
                           #:iterator
                           #:loop
+                          #:step
                           #:map)
   (:export #:main))

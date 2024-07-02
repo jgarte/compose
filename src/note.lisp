@@ -100,18 +100,10 @@
     (:whole-note "1")
     (:half-note "2")))
 
-(defun parse (note)
-  (etypecase note
-    (string
-     (multiple-value-bind (note pos)
-         (parse-integer note)
-       (declare (ignore pos))
-       (make-instance 'note
-                      :note note
-                      :octave (map-note-to-octave note)
-                      :lilypond-note (parse-lilypond-note note))))
-    (integer
-     (make-instance 'note
-                    :note note
-                    :octave (map-note-to-octave note)
-                    :lilypond-note (parse-lilypond-note note)))))
+(defun parse-note (note)
+  (let ((note (parse-integer note)))
+    (check-type note pitch-integer)
+    (make-instance 'note
+                   :note note
+                   :octave (map-note-to-octave note)
+                   :lilypond-note (parse-lilypond-note note)))))

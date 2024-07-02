@@ -1,5 +1,4 @@
 (defsystem "jgart.compose"
-  :depends-on ("charje.loop" "binding-arrows")
   :components
   ((:module "src"
     :serial t

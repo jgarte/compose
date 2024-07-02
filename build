@@ -1,4 +1,4 @@
-#!/bin/env -S sbcl --script
+#!/usr/bin/env -S sbcl --script
 (require "asdf")
 (pushnew (uiop:getcwd) asdf:*central-registry*)
 ;; i might not need load-system becuase make does it

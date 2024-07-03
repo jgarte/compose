@@ -11,10 +11,9 @@
     (dolist (tone-row tone-rows)
       (dolist (note tone-row)
         (write-line
-         (concatenate 'string
-                      (serialize-lilypond-note (lilypond-note note))
-                      (serialize-lilypond-octave (octave note))
-                      (serialize-lilypond-duration (duration note)))
+         (concat (serialize-lilypond-note (lilypond-note note))
+                 (serialize-lilypond-octave (octave note))
+                 (serialize-lilypond-duration (duration note)))
          stream))))
   (write-system-break-directive stream))
 

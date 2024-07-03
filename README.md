@@ -1,34 +1,34 @@
 # compose
 
-This project provides a DSL for composing music with [twelve-tone-rows](https://en.wikipedia.org/wiki/Tone_row).
+The compose program provides a custom DSL for composing music with
+[twelve-tone rows](https://en.wikipedia.org/wiki/Tone_row).
 
-The composer writes an input file consisting of integers 0 through 11.
+The composer composes by specifying integers 0 through 11 exactly once
+on each line.
 
-TODO: Add a list of rules here.
+Each line delimits a twelve-tone row and therefore any given line
+cannot contain more or less than 12 notes per line.
 
-Each line delimits a twelve-tone row.
+Files interpreted by the compose program have a file ending of `.comp`.
 
-The composer can leave notes out and the program will complete the
-[complement](https://en.wikipedia.org/wiki/Complement_(music)#Aggregate_complementation)
-notes.
+Here is a valid input file for one line:
+
+```
+0 1 2 3 4 5 6 7 8 9 10 11
+```
 
 # setup
 
-This program requires [lilypond](https://lilypond.org/) 2.25.12 to be
-installed as a backend for rendering music notation.
+This program requires [sbcl](https://sbcl.org/) and
+[lilypond](https://lilypond.org/) to be installed on the system.
 
 # build
 
-To build the project, call the following commands in order:
+To build the project, clone this repo and run the build script in the
+root of the project directory:
 
 ```sh
-git clone --recurse-submodules https://git.sr.ht/~whereiseveryone/compose
-cd compose
 ./build
 ```
 
 You can now open the PDF called `output.pdf`.
-
-# todo
-
-move modules to `src` folder

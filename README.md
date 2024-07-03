@@ -14,7 +14,7 @@ Files interpreted by the compose program have a file ending of `.comp`.
 Below is an example of valid input for one line:
 
 ```
-1 5 4 4 1 5 3 4 5 3 6
+0 1 6 2 10 9 4 7 3 8 11 5
 ```
 
 An example input file has been included called `music.comp`.

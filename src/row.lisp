@@ -8,11 +8,16 @@
         (push line lines)))
     (nreverse lines)))
 
+(defun normalize (lines)
+  (remove ""
+          (remove-if (lambda (s) (string= " " s)) lines)
+          :test #'string=))
+
 (defun read-tone-rows (filepath-name)
   (let ((result '()))
     (let ((rows (read-lines filepath-name)))
       (dolist (row rows)
-        (push (split-string row) result)))
+        (push (normalize (split-string row)) result)))
     (nreverse result)))
 
 (defun parse-tone-rows (filepath-name)

@@ -2,5 +2,5 @@
 (require "asdf")
 (pushnew (uiop:getcwd) asdf:*central-registry*)
 ;; i might not need load-system becuase make does it
-(asdf:load-system "jgart.compose")
+;;(asdf:load-system "jgart.compose")
 (asdf:make "jgart.compose")

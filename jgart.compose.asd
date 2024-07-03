@@ -5,8 +5,8 @@
     :components
     ((:file "package")
      (:file "utils")
-     (:file "universe")
      (:file "note")
+     (:file "universe")
      (:file "row")
      (:file "io")
      (:file "main"))))

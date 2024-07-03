@@ -81,8 +81,7 @@
   (case note
     ((0 2 11 t) :c4)
     ((1 5 10) :c5)
-    (3 :c6)
-    ((4 9) :c2)
+    ((3 4 9) :c6)
     ((6 7 8) :c3)))
 
 (defun serialize-lilypond-octave (octave)

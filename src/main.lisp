@@ -10,6 +10,5 @@
             (null input-filepath))
     (format t "Usage: compose [FILE]...~%")
     (uiop:quit))
-  (setf *random-state* (make-random-state t))
   (write-music input-filepath output-filepath)
   (lilypond output-filepath))

@@ -1,11 +1,11 @@
 { stdenv }:
 stdenv.mkDerivation {
-  pname = "hello";
+  pname = "build";
   version = "0.0.1";
 
   src = [ ./. ];
 
   installPhase = ''
-    install -D $src/hello.sh $out/bin/hello
+    install -D $src/build $out/bin/build
   '';
 }

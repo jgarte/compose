@@ -8,8 +8,8 @@
 
 (defun write-tone-rows (filepath-name stream)
   (let ((tone-rows (parse-tone-rows filepath-name)))
-    (loop (tone-row tone-rows)
-      (loop (note tone-row)
+    (dolist (tone-row tone-rows)
+      (dolist (note tone-row)
         (write-line
          (concatenate 'string
                       (serialize-lilypond-note (lilypond-note note))

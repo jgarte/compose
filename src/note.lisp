@@ -106,4 +106,4 @@
     (make-instance 'note
                    :note note
                    :octave (map-note-to-octave note)
-                   :lilypond-note (parse-lilypond-note note)))))
+                   :lilypond-note (parse-lilypond-note note))))

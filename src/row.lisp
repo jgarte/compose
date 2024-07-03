@@ -15,10 +15,6 @@
         (push (split-string row) result)))
     (nreverse result)))
 
-(defun universe-helper (l)
-  (remove-if
-   (lambda (s) (string= "_" s)) l))
-
 (defun parse-tone-rows (filepath-name)
   (let ((result '())
         (tone-rows (read-tone-rows filepath-name)))

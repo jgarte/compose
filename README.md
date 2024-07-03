@@ -19,7 +19,7 @@ Below is an example of valid input for one line:
 
 An example input file has been included called `music.comp`.
 
-More examples of tone rows can be found on this page or compose your own 🍎:
+More examples of tone rows can be found below or try composing your own 🍎:
 
 https://en.wikipedia.org/wiki/List_of_tone_rows_and_series
 

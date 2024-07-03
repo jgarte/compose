@@ -11,11 +11,17 @@ cannot contain more or less than 12 notes per line.
 
 Files interpreted by the compose program have a file ending of `.comp`.
 
-Here is a valid input file for one line:
+Below is an example of valid input for one line:
 
 ```
-0 1 2 3 4 5 6 7 8 9 10 11
+1 5 4 4 1 5 3 4 5 3 6
 ```
+
+An example input file has been included called `music.comp`.
+
+More examples of tone rows can be found on this page or compose your own 🍎:
+
+https://en.wikipedia.org/wiki/List_of_tone_rows_and_series
 
 # setup
 

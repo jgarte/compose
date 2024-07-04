@@ -3,6 +3,11 @@
 (defun check-arg (arg)
   (member arg (uiop:command-line-arguments) :test #'string=))
 
+(defun check-no-arg ()
+  (when (null (uiop:command-line-arguments))
+    (print-help)
+    (uiop:quit)))
+
 (defun print-help ()
   (format t "Usage: compose [FILE]...~%"))
 
@@ -25,6 +30,7 @@
 (defun main (&optional
                (input-filepath (first (uiop:command-line-arguments)))
                (output-filepath "output.ly"))
+  (check-no-arg)
   (check-help-flag)
   (check-missing-file-arg input-filepath)
   (check-too-many-args)

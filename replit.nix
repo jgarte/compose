@@ -1,4 +1,4 @@
 { pkgs }:
 {
-  deps = [ pkgs.sbcl pkgs.lilypond pkgs.mupdf];
+  deps = [ pkgs.sbcl pkgs.lilypond pkgs.evince];
 }

@@ -25,6 +25,9 @@
         (tone-rows (read-tone-rows filepath-name)))
     (let ((tone-row-index 1))
       (dolist (tone-row tone-rows)
+        (when (< (length (remove-duplicates tone-row :test #'string=)) (length *universe*))
+          (format *error-output* "You have duplicates in your tone row.~%")
+          (uiop:quit))
         (when (or (> tone-row-index (length tone-rows))
                   (/= (length *universe*) (length tone-row)))
           (format *error-output*

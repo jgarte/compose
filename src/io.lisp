@@ -39,4 +39,8 @@
     (write-score input-filepath stream)))
 
 (defun lilypond (input-filepath)
-  (uiop:launch-program (list "lilypond" "--silent" input-filepath)))
+  (handler-case
+      (uiop:launch-program (list "lilypond" "--silent" input-filepath))
+    (simple-error ()
+      (format t "Lilypond is not installed. Please install it!~%")
+      (uiop:quit))))
